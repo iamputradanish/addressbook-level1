@@ -118,8 +118,8 @@ public class AddressBook {
     private static final String COMMAND_DELETE_WORD = "delete";
     private static final String COMMAND_DELETE_DESC = "Deletes a person identified by the index number used in "
                                                     + "the last find/list call.";
-    private static final String COMMAND_DELETE_PARAMETER = "INDEX";
-    private static final String COMMAND_DELETE_EXAMPLE = COMMAND_DELETE_WORD + " 1";
+    private static final String COMMAND_DELETE_PARAMETER = "INDEX or NAME";
+    private static final String COMMAND_DELETE_EXAMPLE = COMMAND_DELETE_WORD + " 1" + " or delete John Doe";
 
     private static final String COMMAND_CLEAR_WORD = "clear";
     private static final String COMMAND_CLEAR_DESC = "Clears address book permanently.";
