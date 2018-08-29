@@ -67,6 +67,7 @@ public class AddressBook {
      */
     private static final String MESSAGE_ADDED = "New person added: %1$s, Phone: %2$s, Email: %3$s";
     private static final String MESSAGE_ADDRESSBOOK_CLEARED = "Address book has been cleared!";
+    private static final String MESSAGE_CONFIRM_ADDRESSBOOK_CLEAR = "Are you sure you want to clear the Address book? Enter yes to clear.";
     private static final String MESSAGE_COMMAND_HELP = "%1$s: %2$s";
     private static final String MESSAGE_COMMAND_HELP_PARAMETERS = "\tParameters: %1$s";
     private static final String MESSAGE_COMMAND_HELP_EXAMPLE = "\tExample: %1$s";
@@ -126,6 +127,7 @@ public class AddressBook {
     private static final String COMMAND_DELETE_EXAMPLE = COMMAND_DELETE_WORD + " 1";
 
     private static final String COMMAND_CLEAR_WORD = "clear";
+    private static final String COMMAND_CONFIRM_CLEAR_WORD = "yes";
     private static final String COMMAND_CLEAR_DESC = "Clears address book permanently.";
     private static final String COMMAND_CLEAR_EXAMPLE = COMMAND_CLEAR_WORD;
 
@@ -383,8 +385,10 @@ public class AddressBook {
             return executeList5PersonsInAddressBook();
         case COMMAND_DELETE_WORD:
             return executeDeletePerson(commandArgs);
-        case COMMAND_CLEAR_WORD:
+        case COMMAND_CONFIRM_CLEAR_WORD:
             return executeClearAddressBook();
+        case COMMAND_CLEAR_WORD:
+            return MESSAGE_CONFIRM_ADDRESSBOOK_CLEAR;
         case COMMAND_HELP_WORD:
             return getUsageInfoForAllCommands();
         case COMMAND_EXIT_WORD:
@@ -569,6 +573,7 @@ public class AddressBook {
      *
      * @return feedback display message for the operation result
      */
+
     private static String executeClearAddressBook() {
         clearAddressBook();
         return MESSAGE_ADDRESSBOOK_CLEARED;
