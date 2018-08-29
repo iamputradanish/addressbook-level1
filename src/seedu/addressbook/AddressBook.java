@@ -115,6 +115,10 @@ public class AddressBook {
     private static final String COMMAND_LIST_DESC = "Displays all persons as a list with index numbers.";
     private static final String COMMAND_LIST_EXAMPLE = COMMAND_LIST_WORD;
 
+    private static final String COMMAND_LIST5_WORD = "top5";
+    private static final String COMMAND_LIST5_DESC = "Displays 5 persons as a list with index numbers.";
+    private static final String COMMAND_LIST5_EXAMPLE = COMMAND_LIST5_WORD;
+
     private static final String COMMAND_DELETE_WORD = "delete";
     private static final String COMMAND_DELETE_DESC = "Deletes a person identified by the index number used in "
                                                     + "the last find/list call.";
@@ -185,7 +189,7 @@ public class AddressBook {
 
     /**
      * Stores the most recent list of persons shown to the user as a result of a user command.
-     * This is a subset of the full list. Deleting persons in the pull list does not delete
+     * This is a subset of the full list. Deleting persons in the full list does not delete
      * those persons from this list.
      */
     private static ArrayList<String[]> latestPersonListingView = getAllPersonsInAddressBook(); // initial view is of all
@@ -375,6 +379,8 @@ public class AddressBook {
             return executeFindPersons(commandArgs);
         case COMMAND_LIST_WORD:
             return executeListAllPersonsInAddressBook();
+        case COMMAND_LIST5_WORD:
+            return executeList5PersonsInAddressBook();
         case COMMAND_DELETE_WORD:
             return executeDeletePerson(commandArgs);
         case COMMAND_CLEAR_WORD:
@@ -577,6 +583,23 @@ public class AddressBook {
         ArrayList<String[]> toBeDisplayed = getAllPersonsInAddressBook();
         showToUser(toBeDisplayed);
         return getMessageForPersonsDisplayedSummary(toBeDisplayed);
+    }
+
+    private static String executeList5PersonsInAddressBook() {
+        ArrayList<String[]> toBeDisplayed = getAllPersonsInAddressBook();
+        int size = toBeDisplayed.size();
+        if(size < 5) {
+            showToUser(toBeDisplayed);
+            return getMessageForPersonsDisplayedSummary(toBeDisplayed);
+        }
+        else {
+            ArrayList<String[]> toBeDisplayed5 = new ArrayList<>();
+            for(int i = 0; i < 5; i++) {
+                toBeDisplayed5.add(i, toBeDisplayed.get(i));
+            }
+            showToUser(toBeDisplayed5);
+            return getMessageForPersonsDisplayedSummary(toBeDisplayed5);
+        }
     }
 
     /**
@@ -1085,6 +1108,7 @@ public class AddressBook {
         return getUsageInfoForAddCommand() + LS
                 + getUsageInfoForFindCommand() + LS
                 + getUsageInfoForViewCommand() + LS
+                + getUsageInfoForView5Command() + LS
                 + getUsageInfoForDeleteCommand() + LS
                 + getUsageInfoForClearCommand() + LS
                 + getUsageInfoForExitCommand() + LS
@@ -1122,6 +1146,11 @@ public class AddressBook {
     private static String getUsageInfoForViewCommand() {
         return String.format(MESSAGE_COMMAND_HELP, COMMAND_LIST_WORD, COMMAND_LIST_DESC) + LS
                 + String.format(MESSAGE_COMMAND_HELP_EXAMPLE, COMMAND_LIST_EXAMPLE) + LS;
+    }
+
+    private static String getUsageInfoForView5Command() {
+        return String.format(MESSAGE_COMMAND_HELP, COMMAND_LIST5_WORD, COMMAND_LIST5_DESC) + LS
+                + String.format(MESSAGE_COMMAND_HELP_EXAMPLE, COMMAND_LIST5_EXAMPLE) + LS;
     }
 
     /** Returns string for showing 'help' command usage instruction */
